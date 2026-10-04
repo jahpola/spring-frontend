@@ -39,6 +39,7 @@ async function fillProductForm(
     stockQuantity?: string
   },
 ) {
+  await screen.findByRole('textbox', { name: /^name$/i })
   if (values.name) {
     await user.type(screen.getByRole('textbox', { name: /^name$/i }), values.name)
   }

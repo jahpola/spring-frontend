@@ -69,6 +69,7 @@ prefer routing `/api` to the Spring service through a reverse proxy.
 - Confirmed product deletion
 - Loading, empty, network-error, and API-error states
 - Responsive Material UI layout
+- Lazy-loaded product pages with an accessible loading state
 
 The frontend consumes the CRUD endpoints under `/api/products`. Prices remain decimal strings at
 the API boundary to avoid floating-point changes.
