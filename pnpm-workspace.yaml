@@ -1,0 +1,4 @@
+allowBuilds:
+  msw: true
+overrides:
+  whatwg-url: 17.1.1
