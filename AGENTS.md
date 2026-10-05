@@ -125,12 +125,12 @@ contract details against the running backend or its Java DTO/controller definiti
 - `context7`: current documentation for other dependencies such as TanStack Query, React Router,
   Zod, and Vitest.
 
-For database inspection, add a read-only Postgres server in local scope so credentials stay out of
-the repository:
+For database inspection, add a read-only Postgres server in local scope. It connects as the
+`mcp_ro` role that the backend's compose setup creates (see `../spring-hello/docs/docker-setup.md`):
 
 ```bash
 claude mcp add --scope local postgres -- uvx --python 3.13 --with 'mcp<2' postgres-mcp \
-  --access-mode=restricted 'postgresql://<user>:<password>@localhost:5432/product'
+  --access-mode=restricted 'postgresql://mcp_ro:mcp_ro@localhost:5432/product'
 ```
 
 Change data through the backend API, not the database.
