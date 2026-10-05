@@ -3,6 +3,7 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { AppLayout } from '@/components/AppLayout'
 import { LoadingState } from '@/components/AsyncState'
 import { NotFoundPage } from '@/components/NotFoundPage'
+import { PageErrorBoundary } from '@/components/PageErrorBoundary'
 
 const ProductDetailPage = lazy(() =>
   import('@/features/products/pages/ProductDetailPage').then((module) => ({
@@ -27,9 +28,11 @@ export function AppRouter() {
         <Route index element={<Navigate replace to="/products" />} />
         <Route
           element={
-            <Suspense fallback={<LoadingState label="Loading page" />}>
-              <Outlet />
-            </Suspense>
+            <PageErrorBoundary>
+              <Suspense fallback={<LoadingState label="Loading page" />}>
+                <Outlet />
+              </Suspense>
+            </PageErrorBoundary>
           }
         >
           <Route path="products" element={<ProductListPage />} />
