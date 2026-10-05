@@ -114,6 +114,27 @@ Important runtime contract details:
 Update frontend types and tests together when the API contract changes. Prefer verifying uncertain
 contract details against the running backend or its Java DTO/controller definitions.
 
+## MCP servers
+
+`.mcp.json` configures project MCP servers with pinned versions:
+
+- `playwright`: headless, isolated browser. Use it to verify UI changes against `pnpm dev` with the
+  backend running: loading, empty, error, and success states, URL pagination and sorting, and
+  phone-width layouts. Prefer accessibility snapshots over screenshots.
+- `mui`: official Material UI documentation for the installed major version.
+- `context7`: current documentation for other dependencies such as TanStack Query, React Router,
+  Zod, and Vitest.
+
+For database inspection, add a read-only Postgres server in local scope so credentials stay out of
+the repository:
+
+```bash
+claude mcp add --scope local postgres -- uvx --python 3.13 --with 'mcp<2' postgres-mcp \
+  --access-mode=restricted 'postgresql://<user>:<password>@localhost:5432/product'
+```
+
+Change data through the backend API, not the database.
+
 ## Data and form patterns
 
 - Use the shared API client in `src/api/client.ts`.
